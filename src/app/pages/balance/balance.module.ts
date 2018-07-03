@@ -7,6 +7,8 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { BalanceComponent } from './balance.component';
 import { routing } from './balance.routing';
+import { ChartData } from './chartData/chartData.component';
+import { ChartDataService } from './chartData/chartData.service';
 
 @NgModule({
   imports: [
@@ -15,7 +17,11 @@ import { routing } from './balance.routing';
     NgaModule
   ],
   declarations: [
-    BalanceComponent
+    BalanceComponent,
+    ChartData
+  ],
+  providers: [
+    ChartDataService
   ]
 })
 export class BalanceModule {}

@@ -31,7 +31,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'Баланс',
-            icon: 'ion-podium',
+            icon: 'ion-stats-bars',
             selected: false,
             expanded: false,
             order: 50
@@ -87,7 +87,7 @@ export const PAGES_MENU = [
         data: {
           menu: {
             title: 'general.menu.charts',
-            icon: 'ion-stats-bars',
+            icon: 'ion-podium',
             selected: false,
             expanded: false,
             order: 200,

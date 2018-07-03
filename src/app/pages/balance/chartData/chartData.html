@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-6">
+    <ba-card baCardClass="with-scroll">
+      <ba-chartist-chart baChartistChartClass="ct-chart"
+                         baChartistChartType="Bar"
+                         [baChartistChartData]="data['simpleBarData']"
+                         [baChartistChartOptions]="data['simpleBarOptions']">
+      </ba-chartist-chart>
+    </ba-card>
+  </div>
+  <div class="col-md-6">
+    <ba-chartist-chart baChartistChartClass="ct-chart stacked-bar"
+                       baChartistChartType="Pie"
+                       [baChartistChartData]="data['labelsPieData']"
+                       [baChartistChartOptions]="data['labelsPieOptions']">
+    </ba-chartist-chart>
+    <span>Доходы: 1 400</span>
+    <span class="float-right">Расходы: 17 500</span>
+  </div>
+</div>
