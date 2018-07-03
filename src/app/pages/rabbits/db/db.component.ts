@@ -1,14 +1,17 @@
+/**
+ * Created by alexa on 30.06.2018.
+ */
 import { Component } from '@angular/core';
 
-import { SmartTablesService } from './smartTables.service';
+import { DbService } from './db.service';
 import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
-  selector: 'smart-tables',
-  templateUrl: './smartTables.html',
-  styleUrls: ['./smartTables.scss']
+  selector: 'db-table',
+  templateUrl: './db.html',
+  styleUrls: ['./db.scss']
 })
-export class SmartTables {
+export class DbTable {
 
   query: string = '';
   myData: number = 54;
@@ -60,8 +63,8 @@ export class SmartTables {
   source: LocalDataSource = new LocalDataSource();
 
 
-  constructor(protected service: SmartTablesService) {
-    console.log(this.myData);
+  constructor(protected service: DbService) {
+    console.log('DB component', this.myData);
     this.service.getData().then((data) => {
       this.source.load(data);
     });

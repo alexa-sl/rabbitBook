@@ -64,6 +64,11 @@
     "purchases": "Purchases",
     "active_users": "Active Users",
     "returned": "Returned",
+    "rabbits": "Кролики",
+    "earning": "Доходы",
+    "spending":  "Расходы",
+    "young": "Молодняк",
+    "old": "Взрослые",
     "popular_app": {
       "super_app": "Super App",
       "most_popular_app": "Most Popular App",

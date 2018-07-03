@@ -18,7 +18,7 @@ import { TreeView } from './components/treeView/treeView.component';
   ],
   declarations: [
     Components,
-    TreeView,
+    TreeView
   ]
 })
 export class ComponentsModule {}

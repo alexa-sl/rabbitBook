@@ -12,24 +12,22 @@ export class PieChartService {
     return [
       {
         color: pieColor,
-        description: 'dashboard.new_visits',
-        stats: '57,820',
-        icon: 'person',
+        description: 'dashboard.rabbits',
+        stats: '45',
+        all: '45',
+        icon: 'refresh'
       }, {
         color: pieColor,
-        description: 'dashboard.purchases',
-        stats: '$ 89,745',
-        icon: 'money',
+        description: 'dashboard.young',
+        stats: '30',
+        all: '45',
+        icon: 'money'
       }, {
         color: pieColor,
-        description: 'dashboard.active_users',
-        stats: '178,391',
-        icon: 'face',
-      }, {
-        color: pieColor,
-        description: 'dashboard.returned',
-        stats: '32,592',
-        icon: 'refresh',
+        description: 'dashboard.old',
+        stats: '15',
+        all: '45',
+        icon: 'face'
       }
     ];
   }

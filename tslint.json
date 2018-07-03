@@ -87,15 +87,15 @@
     ],
     "no-var-keyword": true,
     "prefer-const": true,
-    "trailing-comma": [
-      true,
-      {
-        "multiline": "always",
-        "singleline": "never"
-      }
-    ],
+//    "trailing-comma": [
+//      true,
+//      {
+//        "multiline": "always",
+//        "singleline": "never"
+//      }
+//    ],
     "no-conditional-assignment": true,
-    "no-console": [true, "log"],
+    "no-console": [false, "log"],
     "space-in-parens": ["error", "info", "never"],
     "number-literal-format": true,
     "no-invalid-template-strings": true,
@@ -108,7 +108,7 @@
     "forin": true,
     "no-duplicate-super": true,
     "triple-equals": true,
-    "array-type": [true, "array"],
+//    "array-type": [true, "array"],
     "arrow-return-shorthand": true,
     "no-boolean-literal-compare": true,
     "object-literal-shorthand": true,

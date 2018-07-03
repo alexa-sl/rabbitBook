@@ -15,6 +15,18 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'rabbits',
+        data: {
+          menu: {
+            title: 'Кролики',
+            icon: 'ion-ios-paw',
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        }
+      },
+      {
         path: 'editors',
         data: {
           menu: {

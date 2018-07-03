@@ -34,7 +34,7 @@ export class PieChart {
       chart.easyPieChart({
         easing: 'easeOutBounce',
         onStep: function (from, to, percent) {
-          jQuery(this.el).find('.percent').text(Math.round(percent));
+            jQuery(this.el).find('.percent').text(Math.round(percent));
         },
         barColor: jQuery(this).attr('data-rel'),
         trackColor: 'rgba(0,0,0,0)',
@@ -48,10 +48,16 @@ export class PieChart {
   }
 
   private _updatePieCharts() {
-    let getRandomArbitrary = (min, max) => { return Math.random() * (max - min) + min; };
 
     jQuery('.pie-charts .chart').each(function(index, chart) {
-      jQuery(chart).data('easyPieChart').update(getRandomArbitrary(55, 90));
+
+      let percent;
+      const all: number = +jQuery(this).attr('data-all');
+      const current: number = +jQuery(this).attr('data-stats');
+
+      percent = Math.floor(current / all * 100);
+
+      jQuery(chart).data('easyPieChart').update(percent);
     });
   }
 }
