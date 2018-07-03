@@ -27,6 +27,18 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'balance',
+        data: {
+          menu: {
+            title: 'Баланс',
+            icon: 'ion-podium',
+            selected: false,
+            expanded: false,
+            order: 50
+          }
+        }
+      },
+      {
         path: 'editors',
         data: {
           menu: {
