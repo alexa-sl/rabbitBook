@@ -14,7 +14,6 @@ import { LocalDataSource } from 'ng2-smart-table';
 export class DbTable {
 
   query: string = '';
-  myData: number = 54;
 
 
   settings = {
@@ -34,27 +33,27 @@ export class DbTable {
     },
     columns: {
       id: {
-        title: this.myData,
+        title: 'ID',
         type: 'number'
       },
       firstName: {
-        title: 'First Name',
+        title: 'Кличка',
         type: 'string'
       },
       motherName: {
-        title: 'Mother Name',
+        title: 'Мать',
         type: 'string'
       },
       fatherName: {
-        title: 'Father Name',
+        title: 'Отец',
         type: 'string'
       },
       age: {
-        title: 'Age',
+        title: 'Возраст',
         type: 'number'
       },
       dateOfBirth: {
-        title: 'Date of birth',
+        title: 'Дата рождения',
         type: 'number'
       }
     }
@@ -64,7 +63,6 @@ export class DbTable {
 
 
   constructor(protected service: DbService) {
-    console.log('DB component', this.myData);
     this.service.getData().then((data) => {
       this.source.load(data);
     });

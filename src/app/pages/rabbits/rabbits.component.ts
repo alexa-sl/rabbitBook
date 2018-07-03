@@ -8,5 +8,11 @@ import { Component } from '@angular/core';
   templateUrl: './rabbits.html',
 })
 export class RabbitsComponent {
-  constructor() {}
+  isChecked: boolean = false;
+
+  toggleVisibility(e) {
+    this.isChecked = e.target.checked;
+  }
+
+  constructor () {}
 }
