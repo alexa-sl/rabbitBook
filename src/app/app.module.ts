@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TranslateService } from '@ngx-translate/core';
+import Backendless from 'backendless';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -16,6 +17,7 @@ import { AppState, InternalStateType } from './app.service';
 import { GlobalState } from './global.state';
 import { NgaModule } from './theme/nga.module';
 import { PagesModule } from './pages/pages.module';
+import { environment } from '../environments/environment';
 
 
 // Application wide providers
@@ -29,6 +31,8 @@ export type StoreType = {
   restoreInputValues: () => void,
   disposeOldHosts: () => void
 };
+
+Backendless.initApp(environment.backendless.applicationId, environment.backendless.jsSecretKey);
 
 /**
  * `AppModule` is the main entry point into Angular2's bootstraping process

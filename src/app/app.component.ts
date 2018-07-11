@@ -6,6 +6,9 @@ import { BaImageLoaderService, BaThemePreloader, BaThemeSpinner } from './theme/
 import { BaThemeConfig } from './theme/theme.config';
 import { layoutPaths } from './theme/theme.constants';
 
+import Backendless from 'backendless';
+
+
 /*
  * App Component
  * Top Level Component

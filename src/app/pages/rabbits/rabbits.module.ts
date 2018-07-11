@@ -10,6 +10,7 @@ import { RabbitsComponent } from './rabbits.component';
 import { routing } from './rabbits.routing';
 import { DbService } from './db/db.service';
 import { DbTable } from './db/db.component';
+import { PersonsService } from './rabbits.service';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { DbTable } from './db/db.component';
     DbTable
   ],
   providers: [
-    DbService
+    DbService,
+    PersonsService
   ]
 })
 export class RabbitsModule {}

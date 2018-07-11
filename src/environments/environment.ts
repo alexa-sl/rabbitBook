@@ -5,4 +5,8 @@
 
 export const environment = {
   production: false,
+  backendless: {
+    applicationId: '52F2BA13-A40E-AD71-FFD9-7EDF003A2F00',
+    jsSecretKey: '13CF9BD6-A86C-6358-FF18-A63696C6B100'
+  }
 };

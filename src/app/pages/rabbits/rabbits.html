@@ -1,4 +1,10 @@
 <h2>Добавление нового кролика</h2>
+<ul>
+  <li *ngFor="let person of persons" class="list-group-item">
+    <div>{{person.name}}</div>
+    <div class="text-muted small">{{person.address}}</div>
+  </li>
+</ul>
 <ba-card baCardClass="with-scroll" class="smart-table-container">
   <div class="row">
     <div class="col-sm-3">

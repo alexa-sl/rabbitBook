@@ -1,7 +1,9 @@
 /**
  * Created by alexa on 29.06.2018.
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Person, PersonsService } from './rabbits.service';
+
 
 @Component({
   selector: 'rabbits',
@@ -10,9 +12,18 @@ import { Component } from '@angular/core';
 export class RabbitsComponent {
   isChecked: boolean = false;
 
+  constructor (private personsService: PersonsService) {}
+
+  ngOnInit() {
+    this.personsService.loadAll();
+  }
+
+  get persons(): Person[] {
+    return this.personsService.persons;
+  }
+
   toggleVisibility(e) {
     this.isChecked = e.target.checked;
   }
 
-  constructor () {}
 }
