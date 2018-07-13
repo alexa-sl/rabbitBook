@@ -6,10 +6,13 @@ export class Person {
   address: string;
 }
 
+
 const personsStore = Backendless.Data.of(Person);
+
 // @Injectable({
 //   providedIn: 'root'
 // })
+
 export class PersonsService {
 
   persons: Person[] = [];

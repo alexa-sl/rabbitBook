@@ -1,10 +1,11 @@
 /**
  * Created by alexa on 30.06.2018.
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { DbService } from './db.service';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Rabbit, RabbitService } from './db.service';
 
 @Component({
   selector: 'db-table',
@@ -32,12 +33,8 @@ export class DbTable {
       confirmDelete: true
     },
     columns: {
-      id: {
-        title: 'ID',
-        type: 'number'
-      },
-      firstName: {
-        title: 'Кличка',
+      name: {
+        title: 'Name',
         type: 'string'
       },
       motherName: {
@@ -48,24 +45,42 @@ export class DbTable {
         title: 'Отец',
         type: 'string'
       },
-      age: {
-        title: 'Возраст',
-        type: 'number'
-      },
-      dateOfBirth: {
+      dob: {
         title: 'Дата рождения',
         type: 'number'
       }
     }
   };
 
-  source: LocalDataSource = new LocalDataSource();
+  ngOnInit() {
+    // this.rabbitsService.loadAllRabbits();
+    console.log('OnInit!', this.rabbits);
 
+    this.rabbitsService.getData().then((data) => {
 
-  constructor(protected service: DbService) {
-    this.service.getData().then((data) => {
-      this.source.load(data);
+      // this.rabbits = data;
+      // this.data.load(data);
+      this.data.load(data);
+      console.log('onInit2', this.rabbits, data);
     });
+  }
+
+  get rabbits(): Rabbit[] {
+    return this.rabbitsService.rabbits;
+  }
+
+  data: LocalDataSource = new LocalDataSource();
+
+  constructor(protected service: DbService, private rabbitsService: RabbitService) {
+    // this.rabbitsService.loadAllRabbits();
+    // this.rabbitsService.getData().then((data) => {
+    //
+    //   // this.rabbits = data;
+    //   this.data.load(data);
+    //   console.log('constructor2', this.rabbits);
+    // });
+    //
+    // console.log('constructor', this.rabbits);
   }
 
   onDeleteConfirm(event): void {

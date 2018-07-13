@@ -8,7 +8,7 @@ import { NgaModule } from '../../theme/nga.module';
 
 import { RabbitsComponent } from './rabbits.component';
 import { routing } from './rabbits.routing';
-import { DbService } from './db/db.service';
+import { DbService, RabbitService } from './db/db.service';
 import { DbTable } from './db/db.component';
 import { PersonsService } from './rabbits.service';
 
@@ -25,6 +25,7 @@ import { PersonsService } from './rabbits.service';
   ],
   providers: [
     DbService,
+    RabbitService,
     PersonsService
   ]
 })

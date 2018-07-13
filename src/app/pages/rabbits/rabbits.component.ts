@@ -14,7 +14,7 @@ export class RabbitsComponent {
 
   constructor (private personsService: PersonsService) {}
 
-  ngOnInit() {
+  OnInit() {
     this.personsService.loadAll();
   }
 

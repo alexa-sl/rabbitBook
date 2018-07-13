@@ -4,6 +4,42 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
+
+export class Rabbit {
+  name: string;
+  dob: string;
+  gender: string;
+  motherName: string;
+  fatherName: string;
+  vaccinations: Array<string>;
+  pregnancies: Array<string>;
+}
+
+const rabbitsBase = Backendless.Data.of(Rabbit);
+
+export class RabbitService {
+  rabbits: Rabbit[] = [];
+
+  // loadAllRabbits() {
+  //   rabbitsBase.find<Rabbit>().then((rabbits: Rabbit[]) => {
+  //     this.rabbits = rabbits;
+  //     console.log(this.rabbits);
+  //   });
+  // }
+
+
+  getData(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      rabbitsBase.find<Rabbit>().then((rabbits: Rabbit[]) => {
+        this.rabbits = rabbits;
+        console.log('inside', this.rabbits);
+        resolve(rabbits);
+      });
+    });
+  }
+}
+
 export class DbService {
 
   smartTableData = [

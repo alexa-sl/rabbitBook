@@ -1,1 +1,4 @@
-<ng2-smart-table [settings]="settings" [source]="source" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+<ng2-smart-table [settings]="settings" [source]="data" (deleteConfirm)="onDeleteConfirm($event)"></ng2-smart-table>
+<ul>
+  <li *ngFor="let rabbit of rabbits">{{rabbit.name}}</li>
+</ul>
