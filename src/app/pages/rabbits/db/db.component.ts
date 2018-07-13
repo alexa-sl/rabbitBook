@@ -3,7 +3,6 @@
  */
 import { Component, OnInit } from '@angular/core';
 
-import { DbService } from './db.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Rabbit, RabbitService } from './db.service';
 
@@ -53,35 +52,18 @@ export class DbTable {
   };
 
   ngOnInit() {
-    // this.rabbitsService.loadAllRabbits();
-    console.log('OnInit!', this.rabbits);
-
     this.rabbitsService.getData().then((data) => {
-
-      // this.rabbits = data;
-      // this.data.load(data);
       this.data.load(data);
-      console.log('onInit2', this.rabbits, data);
     });
   }
 
-  get rabbits(): Rabbit[] {
-    return this.rabbitsService.rabbits;
-  }
+  // get rabbits(): Rabbit[] {
+  //   return this.rabbitsService.rabbits;
+  // }
 
   data: LocalDataSource = new LocalDataSource();
 
-  constructor(protected service: DbService, private rabbitsService: RabbitService) {
-    // this.rabbitsService.loadAllRabbits();
-    // this.rabbitsService.getData().then((data) => {
-    //
-    //   // this.rabbits = data;
-    //   this.data.load(data);
-    //   console.log('constructor2', this.rabbits);
-    // });
-    //
-    // console.log('constructor', this.rabbits);
-  }
+  constructor(private rabbitsService: RabbitService) {}
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
