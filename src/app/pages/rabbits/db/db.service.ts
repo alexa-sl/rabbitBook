@@ -28,6 +28,7 @@ export class RabbitService {
     });
   }
 
+  // remove one element from the database
   removeOneElement(element): Promise<any> {
     return new Promise((resolve, reject) => {
       rabbitsBase.remove(element.objectId)
@@ -35,6 +36,25 @@ export class RabbitService {
           resolve(resp);
         })
         .catch (function (error) {
+          reject(error);
+        });
+    });
+  }
+
+  // add one element to the database
+  addOneElement(element): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let newElement: Object;
+
+      if (element) {
+        newElement = element.newData;
+      }
+
+      rabbitsBase.save(newElement)
+        .then(function (response) {
+          resolve(response);
+        })
+        .catch(function (error) {
           reject(error);
         });
     });

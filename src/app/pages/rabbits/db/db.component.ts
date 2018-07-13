@@ -22,11 +22,13 @@ export class DbTable {
       addButtonContent: '<i class="ion-ios-plus-outline"></i>',
       createButtonContent: '<i class="ion-checkmark"></i>',
       cancelButtonContent: '<i class="ion-close"></i>',
+      confirmCreate: true
     },
     edit: {
       editButtonContent: '<i class="ion-edit"></i>',
       saveButtonContent: '<i class="ion-checkmark"></i>',
       cancelButtonContent: '<i class="ion-close"></i>',
+      confirmSave: true
     },
     delete: {
       deleteButtonContent: '<i class="ion-trash-a"></i>',
@@ -66,6 +68,7 @@ export class DbTable {
 
   constructor(private rabbitsService: RabbitService, private toastr: ToastrService) {}
 
+  // remove element from the database and table using Remove table icon
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
       const that: any = this;
@@ -88,4 +91,33 @@ export class DbTable {
       event.confirm.reject();
     }
   }
+
+  onSaveConfirm(event) {
+    console.log('on save');
+    if (window.confirm('Are you sure you want to save?')) {
+      event.newData['name'] += ' + added in code';
+      event.confirm.resolve(event.newData);
+    } else {
+      event.confirm.reject();
+    }
+  }
+
+  // add new element to the database and table using Plus table button
+  onCreateConfirm(event) {
+    if (window.confirm('Are you sure you want to create?')) {
+      const that: any = this;
+
+      this.rabbitsService.addOneElement(event)
+        .then(function (response) {
+          that.toastr.success('успешно добавлен', response.name);
+          event.confirm.resolve(event.newData);
+        })
+        .catch(function (error) {
+          that.toastr.error(error);
+        });
+    } else {
+      event.confirm.reject();
+    }
+  }
+
 }
