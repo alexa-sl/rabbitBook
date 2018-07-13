@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { LocalDataSource } from 'ng2-smart-table';
 import { Rabbit, RabbitService } from './db.service';
+import {element} from "protractor";
 
 @Component({
   selector: 'db-table',
@@ -67,6 +68,7 @@ export class DbTable {
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
+      this.rabbitsService.removeOneElement(event.data);
       event.confirm.resolve();
     } else {
       event.confirm.reject();
