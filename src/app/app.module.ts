@@ -19,6 +19,10 @@ import { NgaModule } from './theme/nga.module';
 import { PagesModule } from './pages/pages.module';
 import { environment } from '../environments/environment';
 
+// for notifications
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from '../../node_modules/ngx-toastr';
+
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -51,6 +55,8 @@ Backendless.initApp(environment.backendless.applicationId, environment.backendle
     NgaModule.forRoot(),
     NgbModule.forRoot(),
     PagesModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     routing
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

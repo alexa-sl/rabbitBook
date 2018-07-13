@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { LocalDataSource } from 'ng2-smart-table';
 import { Rabbit, RabbitService } from './db.service';
-import {element} from "protractor";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'db-table',
@@ -64,11 +64,25 @@ export class DbTable {
 
   data: LocalDataSource = new LocalDataSource();
 
-  constructor(private rabbitsService: RabbitService) {}
+  constructor(private rabbitsService: RabbitService, private toastr: ToastrService) {}
 
   onDeleteConfirm(event): void {
     if (window.confirm('Are you sure you want to delete?')) {
-      this.rabbitsService.removeOneElement(event.data);
+      const that: any = this;
+
+      this.rabbitsService.removeOneElement(event.data)
+        .then(function () {
+          that.toastr.success('OK', 'Элемент удален!');
+        })
+        .catch(function (error) {
+          if (error && error.status && error.status === 404) {
+            that.toastr.error('Элемент не найден', error.status);
+          } else if (error && error.message) {
+            that.toastr.error(error.message, 'Ошибка');
+          } else {
+            that.toastr.error('Ошибка при удалении');
+          }
+        });
       event.confirm.resolve();
     } else {
       event.confirm.reject();

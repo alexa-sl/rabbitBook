@@ -30,12 +30,12 @@ export class RabbitService {
 
   removeOneElement(element): Promise<any> {
     return new Promise((resolve, reject) => {
-      rabbitsBase.remove('element.objectId')
-        .then(function () {
-          console.log('resolved');
+      rabbitsBase.remove(element.objectId)
+        .then(function (resp) {
+          resolve(resp);
         })
         .catch (function (error) {
-          console.log('rejected', error);
+          reject(error);
         });
     });
   }
