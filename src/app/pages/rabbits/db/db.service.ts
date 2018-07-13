@@ -15,7 +15,17 @@ export class Rabbit {
   pregnancies: Array<string>;
 }
 
-const rabbitsBase = Backendless.Data.of(Rabbit);
+const queryBuilder: Backendless.DataQueryBuilder = Backendless.DataQueryBuilder.create();
+queryBuilder.setPageSize( 25 ).setOffset( 50 );
+queryBuilder.prepareNextPage();
+const rabbitsBase = Backendless.Data.of('Rabbit');
+  rabbitsBase.find(queryBuilder)
+  .then( function( result ) {
+    console.log('result', result);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 
 export class RabbitService {
   rabbits: Rabbit[] = [];
@@ -35,7 +45,7 @@ export class RabbitService {
         .then(function (resp) {
           resolve(resp);
         })
-        .catch (function (error) {
+        .catch(function (error) {
           reject(error);
         });
     });
@@ -59,4 +69,19 @@ export class RabbitService {
         });
     });
   }
+
+
+  basicPaging(): void {
+    const query = Backendless.DataQueryBuilder.create();
+    query.setPageSize(99);
+
+    Backendless.Data.of('Rabbit').find(query).then( function( response ) {
+        console.log(response);
+      })
+      .catch( function( error ) {
+        console.log(error);
+      });
+
+  }
+
 }

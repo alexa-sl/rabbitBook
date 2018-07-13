@@ -58,6 +58,7 @@ export class DbTable {
     this.rabbitsService.getData().then((data) => {
       this.data.load(data);
     });
+    this.rabbitsService.basicPaging();
   }
 
   // get rabbits(): Rabbit[] {
