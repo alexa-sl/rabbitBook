@@ -15,26 +15,36 @@ export class Rabbit {
   pregnancies: Array<string>;
 }
 
-const queryBuilder: Backendless.DataQueryBuilder = Backendless.DataQueryBuilder.create();
-queryBuilder.setPageSize( 25 ).setOffset( 50 );
-queryBuilder.prepareNextPage();
+// const queryBuilder: Backendless.DataQueryBuilder = Backendless.DataQueryBuilder.create();
+// queryBuilder.setPageSize( 25 ).setOffset( 50 );
+// queryBuilder.prepareNextPage();
 const rabbitsBase = Backendless.Data.of('Rabbit');
-  rabbitsBase.find(queryBuilder)
-  .then( function( result ) {
-    console.log('result', result);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
+//   rabbitsBase.find(queryBuilder)
+//   .then( function( result ) {
+//     console.log('result', result);
+//   })
+//   .catch(function (error) {
+//     console.log(error);
+//   });
 
 export class RabbitService {
   rabbits: Rabbit[] = [];
 
   getData(): Promise<any> {
     return new Promise((resolve, reject) => {
-      rabbitsBase.find<Rabbit>().then((rabbits: Rabbit[]) => {
-        resolve(rabbits);
-      });
+
+      const query = Backendless.DataQueryBuilder.create();
+      query.setPageSize(99);
+
+      Backendless.Data.of('Rabbit').find(query)
+        .then((rabbits: Rabbit[]) => {
+          resolve(rabbits);
+        })
+        .catch( function( error ) {
+          console.log(error);
+          reject(error);
+        });
+
     });
   }
 
