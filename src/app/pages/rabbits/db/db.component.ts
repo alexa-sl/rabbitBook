@@ -58,7 +58,6 @@ export class DbTable {
     this.rabbitsService.getData().then((data) => {
       this.data.load(data);
     });
-    // this.rabbitsService.basicPaging();
   }
 
   // get rabbits(): Rabbit[] {
@@ -96,8 +95,16 @@ export class DbTable {
   onSaveConfirm(event) {
     console.log('on save');
     if (window.confirm('Are you sure you want to save?')) {
-      event.newData['name'] += ' + added in code';
-      event.confirm.resolve(event.newData);
+      const that: any = this;
+
+      this.rabbitsService.addOneElement(event)
+        .then(function (response) {
+          that.toastr.success('успешно обновлен', response.name);
+          event.confirm.resolve(event.newData);
+        })
+        .catch(function (error) {
+          that.toastr.error(error);
+        });
     } else {
       event.confirm.reject();
     }
