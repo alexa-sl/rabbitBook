@@ -9,19 +9,24 @@ import { BalanceComponent } from './balance.component';
 import { routing } from './balance.routing';
 import { ChartData } from './chartData/chartData.component';
 import { ChartDataService } from './chartData/chartData.service';
+import { FormsModule } from '@angular/forms';
+import { SpendingItem, SpendingsService } from './balance.service';
 
 @NgModule({
   imports: [
     CommonModule,
     routing,
-    NgaModule
+    NgaModule,
+    FormsModule
   ],
   declarations: [
     BalanceComponent,
     ChartData
   ],
   providers: [
-    ChartDataService
+    ChartDataService,
+    SpendingItem,
+    SpendingsService
   ]
 })
 export class BalanceModule {}

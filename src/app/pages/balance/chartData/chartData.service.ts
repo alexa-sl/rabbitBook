@@ -2,10 +2,10 @@
  * Created by alexa on 03.07.2018.
  */
 import { Injectable } from '@angular/core';
-
 import { BaThemeConfigProvider } from '../../../theme';
 
 @Injectable()
+
 export class ChartDataService {
 
   private _data = {
@@ -71,3 +71,4 @@ export class ChartDataService {
     ];
   }
 }
+

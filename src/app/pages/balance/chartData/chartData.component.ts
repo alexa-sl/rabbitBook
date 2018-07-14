@@ -26,4 +26,5 @@ export class ChartData {
   getResponsive(padding, offset) {
     return this._chartDataService.getResponsive(padding, offset);
   }
+
 }
