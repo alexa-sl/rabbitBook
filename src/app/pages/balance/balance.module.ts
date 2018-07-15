@@ -8,7 +8,7 @@ import { NgaModule } from '../../theme/nga.module';
 import { BalanceComponent } from './balance.component';
 import { routing } from './balance.routing';
 import { ChartData } from './chartData/chartData.component';
-import { ChartDataService } from './chartData/chartData.service';
+import { ChartDataService, ChartSpendingsService, SpendingChartItem } from './chartData/chartData.service';
 import { FormsModule } from '@angular/forms';
 import { EarningItem, EarningsService, SpendingItem, SpendingsService } from './balance.service';
 
@@ -28,7 +28,9 @@ import { EarningItem, EarningsService, SpendingItem, SpendingsService } from './
     SpendingItem,
     EarningItem,
     SpendingsService,
-    EarningsService
+    EarningsService,
+    ChartSpendingsService,
+    SpendingChartItem
   ]
 })
 export class BalanceModule {}

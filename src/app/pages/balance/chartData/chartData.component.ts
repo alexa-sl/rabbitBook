@@ -3,7 +3,7 @@
  */
 import { Component } from '@angular/core';
 
-import { ChartDataService } from './chartData.service';
+import { ChartDataService, ChartSpendingsService, SpendingChartItem } from './chartData.service';
 
 @Component({
   selector: 'chart-data',
@@ -14,13 +14,17 @@ import { ChartDataService } from './chartData.service';
 export class ChartData {
 
   data: any;
+  spendingsData: any;
 
-  constructor(private _chartDataService: ChartDataService) {
-  }
+  constructor(
+    private _chartDataService: ChartDataService,
+    private chartSpendingsService: ChartSpendingsService
+  ) {}
 
   ngOnInit() {
-    console.log("chartData.component");
+    console.log('chartData.component');
     this.data = this._chartDataService.getAll();
+    this.spendingsData = this.chartSpendingsService.getData();
   }
 
   getResponsive(padding, offset) {

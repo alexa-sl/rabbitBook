@@ -11,7 +11,7 @@ export class SpendingItem {
   transactionDate: string;
 }
 export class EarningItem {
-  sum: number;
+  sum: string;
   comment: string;
   ransactionDate: string;
 }
@@ -44,8 +44,10 @@ export class SpendingsService {
   addSpendingItem(element): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      const jelem = JSON.stringify(element);
-      spendingBase.save(jelem)
+      // TODO whf?
+      element.sum = element.sum.toString();
+
+      spendingBase.save(element)
         .then(function (response) {
           resolve(response);
         })
@@ -80,6 +82,8 @@ export class EarningsService {
   addEarningItem(element): Promise<any> {
     return new Promise((resolve, reject) => {
 
+      // TODO whf?
+      element.sum = element.sum.toString();
       earningBase.save(element)
         .then(function (response) {
           resolve(response);

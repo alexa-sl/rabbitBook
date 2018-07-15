@@ -1,14 +1,14 @@
 /**
  * Created by alexa on 03.07.2018.
  */
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { BaThemeConfigProvider } from '../../../theme';
+import * as jQuery from 'jquery';
 
 @Injectable()
-
 export class ChartDataService {
 
-  private _data = {
+   _data = {
     simpleBarData: {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       series: [
@@ -39,7 +39,7 @@ export class ChartDataService {
   constructor(private _baConfig: BaThemeConfigProvider) {
   }
 
-  public getAll() {
+  getAll() {
     return this._data;
   }
 
@@ -69,6 +69,62 @@ export class ChartDataService {
         }
       }]
     ];
+  }
+}
+
+export class SpendingChartItem {
+  sum: string;
+  comment: string;
+  transactionDate: string;
+}
+// export class EarningChartItem {
+//   sum: string;
+//   comment: string;
+//   ransactionDate: string;
+// }
+
+// const earningBase = Backendless.Data.of('Earning');
+const spendingBase = Backendless.Data.of('Spending');
+
+export class ChartSpendingsService {
+  spendings: SpendingChartItem[] = [];
+
+  getData(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      const query = Backendless.DataQueryBuilder.create();
+      query.setPageSize(99);
+
+      Backendless.Data.of('Spending').find(query)
+        .then((spendings: SpendingChartItem[]) => {
+          this.getMonthlySpendings(spendings);
+          resolve(spendings);
+        })
+        .catch(function (error) {
+          console.log(error);
+          reject(error);
+        });
+    });
+  }
+
+  getMonthlySpendings(spendingsItems): void {
+    console.log('getMonthlySpendings');
+
+    if (!spendingsItems) {
+      return;
+    }
+
+    const aMonthlySpendings: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+    jQuery.map(spendingsItems, function (val, i) {
+      if (val.transactionDate) {
+        const spendingItemDate = new Date(val.transactionDate);
+        const spendingItemMonth = spendingItemDate.getMonth();
+
+        aMonthlySpendings[spendingItemMonth] = +aMonthlySpendings[spendingItemMonth] + +val.sum;
+      }
+    });
+    console.log(aMonthlySpendings);
   }
 }
 
