@@ -10,7 +10,7 @@ import { routing } from './balance.routing';
 import { ChartData } from './chartData/chartData.component';
 import { ChartDataService } from './chartData/chartData.service';
 import { FormsModule } from '@angular/forms';
-import { SpendingItem, SpendingsService } from './balance.service';
+import { EarningItem, EarningsService, SpendingItem, SpendingsService } from './balance.service';
 
 @NgModule({
   imports: [
@@ -26,7 +26,9 @@ import { SpendingItem, SpendingsService } from './balance.service';
   providers: [
     ChartDataService,
     SpendingItem,
-    SpendingsService
+    EarningItem,
+    SpendingsService,
+    EarningsService
   ]
 })
 export class BalanceModule {}

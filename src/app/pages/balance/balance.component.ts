@@ -2,29 +2,37 @@
  * Created by alexa on 03.07.2018.
  */
 import { Component } from '@angular/core';
-import { SpendingItem, SpendingsService } from './balance.service';
+import { EarningItem, EarningsService, SpendingItem, SpendingsService } from './balance.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'balance',
   templateUrl: './balance.html',
 })
 export class BalanceComponent {
-  constructor(private spendingItem: SpendingItem, private spendingsService: SpendingsService) {
-    spendingItem.sum = 30;
-  }
+  constructor(
+    private earningItem: EarningItem,
+    private spendingItem: SpendingItem,
+    private earningService: EarningsService,
+    private spendingsService: SpendingsService,
+    private toastr: ToastrService
+  ) {}
 
   onSubmitSpendingForm() {
-    this.spendingItem.sum = 29;
-    this.spendingsService.addSpendingItem(this.spendingItem);
-    console.log('submit!', this.spendingItem);
+    const that: any = this;
+
+    this.spendingsService.addSpendingItem(this.spendingItem)
+      .then(function (response) {
+        that.toastr.success('успешно добавленo', response.comment);
+      })
+      .catch(function (error) {
+        that.toastr.error(error.message, error.code);
+      });
   }
 
-}
-
-export class SpendingForm {
-  constructor(spendingItem: SpendingItem) {}
-
-  sum = 27;
-
+  onSubmitEarningForm() {
+    this.earningService.addEarningItem(this.earningItem);
+    console.log('Submit earning', this.earningItem);
+  }
 
 }

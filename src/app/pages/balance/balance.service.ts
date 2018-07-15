@@ -10,25 +10,18 @@ export class SpendingItem {
   comment: string;
   transactionDate: string;
 }
+export class EarningItem {
+  sum: number;
+  comment: string;
+  ransactionDate: string;
+}
 
 const earningBase = Backendless.Data.of('Earning');
 const spendingBase = Backendless.Data.of('Spending');
 
-export class Spending {
-  constructor (
-    public transactionDate: string,
-    public comment: string,
-    public sum: number
-  ) {}
-}
-export class Earning {
-  transactionDate: string;
-  comment: string;
-  sum: number;
-}
 
 export class SpendingsService {
-  spending: Spending[] = [];
+  spendings: SpendingItem[] = [];
 
   getData(): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -37,7 +30,7 @@ export class SpendingsService {
       query.setPageSize(99);
 
       Backendless.Data.of('Spending').find(query)
-        .then((spendings: Spending[]) => {
+        .then((spendings: SpendingItem[]) => {
           resolve(spendings);
         })
         .catch(function (error) {
@@ -50,13 +43,44 @@ export class SpendingsService {
 
   addSpendingItem(element): Promise<any> {
     return new Promise((resolve, reject) => {
-      let newElement: Object;
 
-      if (element) {
-        newElement = element.newData;
-      }
+      const jelem = JSON.stringify(element);
+      spendingBase.save(jelem)
+        .then(function (response) {
+          resolve(response);
+        })
+        .catch(function (error) {
+          reject(error);
+        });
+    });
+  }
+}
 
-      spendingBase.save(newElement)
+export class EarningsService {
+  earnings: EarningItem[] = [];
+
+  getData(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      const query = Backendless.DataQueryBuilder.create();
+      query.setPageSize(99);
+
+      Backendless.Data.of('Earning').find(query)
+        .then((earnings: EarningItem[]) => {
+          resolve(earnings);
+        })
+        .catch(function (error) {
+          console.log(error);
+          reject(error);
+        });
+
+    });
+  }
+
+  addEarningItem(element): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      earningBase.save(element)
         .then(function (response) {
           resolve(response);
         })
