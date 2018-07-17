@@ -31,8 +31,15 @@ export class BalanceComponent {
   }
 
   onSubmitEarningForm() {
-    this.earningService.addEarningItem(this.earningItem);
-    console.log('Submit earning', this.earningItem);
+    const that: any = this;
+
+    this.earningService.addEarningItem(this.earningItem)
+      .then(function (response) {
+        that.toastr.success('успешно добавленo', response.comment);
+      })
+      .catch(function (error) {
+        that.toastr.error(error.message, error.code);
+      });
   }
 
 }

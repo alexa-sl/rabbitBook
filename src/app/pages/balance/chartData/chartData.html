@@ -14,7 +14,7 @@
                        [baChartistChartData]="data['labelsPieData']"
                        [baChartistChartOptions]="data['labelsPieOptions']">
     </ba-chartist-chart>
-    <span>Доходы: 1 400</span>
-    <span class="float-right">Расходы: 17 500</span>
+    <span>Доходы: {{ data.totalEarnings }}</span>
+    <span class="float-right">Расходы: {{ data.totalSpendings }}</span>
   </div>
 </div>

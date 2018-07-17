@@ -3,7 +3,6 @@
  */
 import { Injectable, OnInit } from '@angular/core';
 import { BaThemeConfigProvider } from '../../../theme';
-import * as jQuery from 'jquery';
 
 @Injectable()
 export class ChartDataService {
@@ -12,8 +11,8 @@ export class ChartDataService {
     simpleBarData: {
       labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       series: [
-        [0, 0, 0, 0, 0, 1400],
-        [1300, 7500, 525, 1100, 400, 1100, 525]
+        [],
+        []
       ]
     },
     simpleBarOptions: {
@@ -22,8 +21,8 @@ export class ChartDataService {
     },
 
     labelsPieData: {
-      series: [1400, 17500],
-      labels: ['Доход', 'Расход']
+      series: [],
+      labels: ['Расходы', 'Доходы']
     },
     labelsPieOptions: {
       fullWidth: true,
@@ -31,7 +30,7 @@ export class ChartDataService {
       weight: '300px',
       donut: true,
       labelInterpolationFnc: function (value) {
-        return value[0];
+        return value;
       }
     }
   };
@@ -77,27 +76,24 @@ export class SpendingChartItem {
   comment: string;
   transactionDate: string;
 }
-// export class EarningChartItem {
-//   sum: string;
-//   comment: string;
-//   ransactionDate: string;
-// }
+export class EarningChartItem {
+  sum: string;
+  comment: string;
+  ransactionDate: string;
+}
 
-// const earningBase = Backendless.Data.of('Earning');
+const earningBase = Backendless.Data.of('Earning');
 const spendingBase = Backendless.Data.of('Spending');
 
 export class ChartSpendingsService {
-  spendings: SpendingChartItem[] = [];
-
   getData(): Promise<any> {
     return new Promise((resolve, reject) => {
 
       const query = Backendless.DataQueryBuilder.create();
       query.setPageSize(99);
 
-      Backendless.Data.of('Spending').find(query)
+      spendingBase.find(query)
         .then((spendings: SpendingChartItem[]) => {
-          this.getMonthlySpendings(spendings);
           resolve(spendings);
         })
         .catch(function (error) {
@@ -106,25 +102,24 @@ export class ChartSpendingsService {
         });
     });
   }
-
-  getMonthlySpendings(spendingsItems): void {
-    console.log('getMonthlySpendings');
-
-    if (!spendingsItems) {
-      return;
-    }
-
-    const aMonthlySpendings: Array<any> = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
-    jQuery.map(spendingsItems, function (val, i) {
-      if (val.transactionDate) {
-        const spendingItemDate = new Date(val.transactionDate);
-        const spendingItemMonth = spendingItemDate.getMonth();
-
-        aMonthlySpendings[spendingItemMonth] = +aMonthlySpendings[spendingItemMonth] + +val.sum;
-      }
-    });
-    console.log(aMonthlySpendings);
-  }
 }
 
+export class ChartEarningsService {
+  getData(): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      const query = Backendless.DataQueryBuilder.create();
+      query.setPageSize(99);
+
+      earningBase.find(query)
+        .then((earnings: EarningChartItem[]) => {
+          console.log('base', earnings);
+          resolve(earnings);
+        })
+        .catch(function (error) {
+          console.log(error);
+          reject(error);
+        });
+    });
+  }
+}

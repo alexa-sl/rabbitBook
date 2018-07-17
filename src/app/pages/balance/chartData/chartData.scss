@@ -23,19 +23,19 @@
 
   .ct-series-a {
     .ct-bar, .ct-line, .ct-point, .ct-slice-donut, .ct-slice-pie {
-      stroke: $success;
+      stroke: $danger;
     }
     .ct-slice-pie, .ct-area {
-      fill: $success;
+      fill: $danger;
     }
   }
 
   .ct-series-b {
     .ct-bar, .ct-line, .ct-point, .ct-slice-donut, .ct-slice-pie {
-      stroke: $danger;
+      stroke: $success;
     }
     .ct-slice-pie, .ct-area {
-      fill: $danger;
+      fill: $success;
     }
   }
 

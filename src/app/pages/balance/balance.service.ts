@@ -11,7 +11,7 @@ export class SpendingItem {
   transactionDate: string;
 }
 export class EarningItem {
-  sum: string;
+  sum: number;
   comment: string;
   ransactionDate: string;
 }
@@ -83,9 +83,11 @@ export class EarningsService {
     return new Promise((resolve, reject) => {
 
       // TODO whf?
-      element.sum = element.sum.toString();
+      // element.sum = element.sum.toString();
+
       earningBase.save(element)
         .then(function (response) {
+          console.log('add', response);
           resolve(response);
         })
         .catch(function (error) {
