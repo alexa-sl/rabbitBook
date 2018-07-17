@@ -30,11 +30,15 @@ export class ChartData {
 
       that.data = values[0];
 
-      that.data.simpleBarData.series[1] = that.getMonthlySums(values[1]);
-      that.data.simpleBarData.series[0] = that.getMonthlySums(values[2]);
+      const aMonthlySpendingsSums = that.getMonthlySums(values[1]);
+      const aMonthlyEarningsSums = that.getMonthlySums(values[2]);
+      console.log(aMonthlySpendingsSums);
 
-      that.data.totalEarnings = that.data.simpleBarData.series[0].reduce((a, b) => a + b, 0);
-      that.data.totalSpendings = that.data.simpleBarData.series[1].reduce((a, b) => a + b, 0);
+      that.data.simpleBarData.series[0] = aMonthlySpendingsSums;
+      that.data.simpleBarData.series[1] = aMonthlyEarningsSums;
+
+      that.data.totalEarnings = aMonthlyEarningsSums.reduce((a, b) => a + b, 0);
+      that.data.totalSpendings = aMonthlySpendingsSums.reduce((a, b) => a + b, 0);
 
       that.data.labelsPieData.series[0] = that.data.totalSpendings;
       that.data.labelsPieData.series[1] = that.data.totalEarnings;
