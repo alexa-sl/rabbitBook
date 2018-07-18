@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-6">
+    <ng2-smart-table [settings]="tableSettings" [source]="spendingsData"
+                     (deleteConfirm)="onDeleteConfirm($event)"
+                     (editConfirm)="onSaveConfirm($event)"
+                     (createConfirm)="onCreateConfirm($event)"
+    class="spendings-table"></ng2-smart-table>
+  </div>
+  <div class="col-md-6">
+    <ng2-smart-table [settings]="tableSettings" [source]="earningsData"
+                     (deleteConfirm)="onDeleteConfirm($event)"
+                     (editConfirm)="onSaveConfirm($event)"
+                     (createConfirm)="onCreateConfirm($event)"
+    class="earnings-table"></ng2-smart-table>
+  </div>
+</div>
+
+
+

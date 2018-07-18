@@ -1,9 +1,10 @@
 /**
  * Created by alexa on 03.07.2018.
  */
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EarningItem, EarningsService, SpendingItem, SpendingsService } from './balance.service';
 import { ToastrService } from 'ngx-toastr';
+import { ChartData } from './chartData/chartData.component';
 
 @Component({
   selector: 'balance',
@@ -15,8 +16,13 @@ export class BalanceComponent {
     private spendingItem: SpendingItem,
     private earningService: EarningsService,
     private spendingsService: SpendingsService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private chartData: ChartData
   ) {}
+
+  ngOnInit() {
+    this.chartData.getAllBalanceData();
+  }
 
   onSubmitSpendingForm() {
     const that: any = this;
@@ -41,5 +47,6 @@ export class BalanceComponent {
         that.toastr.error(error.message, error.code);
       });
   }
+
 
 }

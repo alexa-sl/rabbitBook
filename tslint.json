@@ -111,7 +111,7 @@
 //    "array-type": [true, "array"],
     "arrow-return-shorthand": true,
     "no-boolean-literal-compare": true,
-    "object-literal-shorthand": true,
+//    "object-literal-shorthand": true,
 
     "directive-selector": [true, "attribute", ["nga", "ngd", "ngt"], "camelCase"],
     "component-selector": [true, "element", ["nga", "ngd", "ngt"], "kebab-case"],

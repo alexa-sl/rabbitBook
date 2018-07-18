@@ -14,27 +14,34 @@ import {
 } from './chartData/chartData.service';
 import { FormsModule } from '@angular/forms';
 import { EarningItem, EarningsService, SpendingItem, SpendingsService } from './balance.service';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { TableDataService } from './tableData/tableData.service';
+import { TableData } from './tableData/tableData.component';
 
 @NgModule({
   imports: [
     CommonModule,
     routing,
     NgaModule,
+    Ng2SmartTableModule,
     FormsModule
   ],
   declarations: [
     BalanceComponent,
-    ChartData
+    ChartData,
+    TableData
   ],
   providers: [
     ChartDataService,
+    TableDataService,
     SpendingItem,
     EarningItem,
     SpendingsService,
     EarningsService,
     ChartSpendingsService,
     ChartEarningsService,
-    SpendingChartItem
+    SpendingChartItem,
+    ChartData
   ]
 })
 export class BalanceModule {}
