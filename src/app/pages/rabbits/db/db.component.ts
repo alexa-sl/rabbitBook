@@ -50,6 +50,14 @@ export class DbTable {
       dob: {
         title: 'Дата рождения',
         type: 'number'
+      },
+      gender: {
+        title: 'Пол',
+        type: 'string'
+      },
+      children: {
+        title: 'Потомки',
+        type: 'Array'
       }
     }
   };

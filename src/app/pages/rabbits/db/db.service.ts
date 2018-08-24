@@ -54,6 +54,7 @@ export class RabbitService {
   // add one element to the database
   addOneElement(element): Promise<any> {
     return new Promise((resolve, reject) => {
+      console.log('add one element');
       let newElement: Object;
 
       if (element) {
@@ -62,9 +63,11 @@ export class RabbitService {
 
       rabbitsBase.save(newElement)
         .then(function (response) {
+          console.log('one element added', response);
           resolve(response);
         })
         .catch(function (error) {
+          console.log('one element add rejected', error);
           reject(error);
         });
     });

@@ -1,82 +1,115 @@
+<h2>Добавление нового кролика</h2>
+<ba-card baCardClass="with-scroll" class="smart-table-container">
+  <form (ngSubmit)="onSubmitAddRabbitsForm()"
+        #addRabbitsForm="ngForm">
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="rabbitName">Кличка</label>
+          <input [(ngModel)]="rabbit.name"
+                 name="name"
+                 #name="ngModel"
+                 type="text" class="form-control" id="rabbitName" placeholder="Кличка">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="motherName">Мать</label>
+          <select
+            [(ngModel)]="rabbit.motherName"
+            name="motherName"
+            #fatherName="ngModel"
+            class="form-control" id="motherName" placeholder="Мать">
+            <option *ngFor="let mother of mothers">{{ mother.name }}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="fatherName">Отец</label>
+          <input type="text"
+                 [(ngModel)]="rabbit.fatherName"
+                 name="fatherName"
+                 #fatherName="ngModel"
+                 class="form-control" id="fatherName" placeholder="Отец">
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="dob">Дата рождения</label>
+          <input type="date"
+                 [(ngModel)]="rabbit.dob"
+                 name="dob"
+                 #dob="ngModel"
+                 class="form-control" id="dob" placeholder="Дата рождения">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-sm-9">
+        <div class="form-group">
+          <div class="input-demo radio-demo row">
+            <div class="col-md-2">
+              <label class="radio-inline custom-radio nowrap">
+                <input
+                  [(ngModel)]="rabbit.gender"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  value="male">
+                <span>Мальчик</span> </label>
+            </div>
+            <div class="col-md-2">
+              <label class="radio-inline custom-radio nowrap">
+                <input
+                  [(ngModel)]="rabbit.gender"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  value="female">
+                <span>Девочка</span>
+              </label>
+            </div>
+            <div class="col-md-2">
+              <label class="radio-inline custom-radio nowrap">
+                <input
+                  [(ngModel)]="rabbit.gender"
+                  type="radio"
+                  name="inlineRadioOptions"
+                  value="unknown">
+                <span>Неизвестно</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label class="control-label custom-checkbox" for="AddMoreThanOne">
+            <input type="checkbox" id="AddMoreThanOne" (change)="toggleVisibility($event)">
+            <span>Добавить несколько</span>
+          </label>
+        </div>
+        <div class="form-group" *ngIf="isChecked">
+          <input type="number" class="form-control">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <button type="submit" [disabled]="!addRabbitsForm.form.valid" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</ba-card>
+
+
 <h2>База</h2>
 <ba-card baCardClass="with-scroll" class="smart-table-container">
   <div class="row">
     <div class="smart-table-container">
       <db-table></db-table>
-    </div>
-  </div>
-</ba-card>
-
-<h2>Добавление нового кролика</h2>
-<ba-card baCardClass="with-scroll" class="smart-table-container">
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputFirstName">Кличка</label>
-        <input type="text" class="form-control" id="inputFirstName" placeholder="Кличка">
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputLastName">Мать</label>
-        <input type="text" class="form-control" id="inputLastName" placeholder="Мать">
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputLastName">Отец</label>
-        <input type="text" class="form-control" id="inputLastName2" placeholder="Отец">
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputEmail">Дата рождения</label>
-        <input type="date" class="form-control" id="inputEmail" placeholder="Дата рождения">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-
-    <div class="col-sm-9">
-      <div class="form-group">
-        <div class="input-demo radio-demo row">
-          <div class="col-md-2">
-            <label class="radio-inline custom-radio nowrap">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-              <span>Мальчик</span> </label>
-          </div>
-          <div class="col-md-2">
-            <label class="radio-inline custom-radio nowrap">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-              <span>Девочка</span>
-            </label>
-          </div>
-          <div class="col-md-2">
-            <label class="radio-inline custom-radio nowrap">
-              <input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
-              <span>Неизвестно</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label class="control-label custom-checkbox" for="AddMoreThanOne">
-          <input type="checkbox" id="AddMoreThanOne" (change)="toggleVisibility($event)">
-          <span>Добавить несколько</span>
-        </label>
-      </div>
-      <div class="form-group" *ngIf="isChecked">
-        <input type="number" class="form-control">
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <button type="submit" class="btn btn-primary">Submit</button>
     </div>
   </div>
 </ba-card>
