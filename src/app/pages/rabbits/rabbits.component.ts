@@ -40,7 +40,7 @@ export class RabbitsComponent {
     this.rabbitService.addOneElement(this.rabbit)
       .then((response) => {
         if (this.rabbit.mother) {
-          this.addRelationToParent(response, 'mother', this.rabbit.mother);
+          this.addRelationToParent(this.rabbit.mother, 'mother', response);
         }
       });
 
@@ -65,8 +65,8 @@ export class RabbitsComponent {
   }
 
   // add relation to parent
-  addRelationToParent (child, destination, parent) {
-    this.rabbitService.addRelation(child, destination, parent);
+  addRelationToParent (parent, destination, child) {
+    this.rabbitService.addRelation(parent, destination, child);
   }
 
 }

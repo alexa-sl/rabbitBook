@@ -77,7 +77,7 @@ export class RabbitService {
   }
 
   // add relation
-  addRelation(child, destination, parent): Promise<any> {
+  addRelation(parent, destination, child): Promise<any> {
     return new Promise((resolve, reject) => {
 
       rabbitsBase.addRelation(parent, 'children', [child.objectId])
