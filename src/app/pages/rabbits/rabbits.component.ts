@@ -15,7 +15,7 @@ import {forEach} from "@angular/router/src/utils/collection";
 export class RabbitsComponent {
   isChecked: boolean = false;
   mothers: Array<any> = [];
-  foundRabbit: Object = {};
+  fathers: Array<any> = [];
 
   constructor (
     private personsService: PersonsService,
@@ -24,7 +24,8 @@ export class RabbitsComponent {
   ) {}
 
   ngOnInit() {
-    this.getMothers();
+    this.getParents('mother', 'female');
+    this.getParents('father', 'male');
     this.rabbit.gender = 'unknown';
   }
 
@@ -40,24 +41,37 @@ export class RabbitsComponent {
     this.rabbitService.addOneElement(this.rabbit)
       .then((response) => {
         if (this.rabbit.mother) {
-          this.addRelationToParent(this.rabbit.mother, 'children', response);
-          this.addRelationToParent(response, 'mother', this.rabbit.mother);
+          this.rabbitService.addRelation(this.rabbit.mother, 'children', response);
+          this.rabbitService.addRelation(response, 'mother', this.rabbit.mother);
         }
+        if (this.rabbit.father) {
+          this.rabbitService.addRelation(this.rabbit.father, 'children', response);
+          this.rabbitService.addRelation(response, 'father', this.rabbit.father);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
       });
 
     console.log('on submit add rabbits form', this.rabbit);
   }
 
-  // get all mothers
-  getMothers() {
+  // get all parents (mothers or fathers. args: parentEntity ('mother', 'father'); parentGender('female', 'male'))
+  getParents(parentEntity, parentGender) {
     this.rabbitService.getData()
       .then((data) => {
-        console.log('getMotherNames', data);
+        console.log('getParentsNames', data);
+        const parents: Array<any> = [];
+
         data.forEach((rabbit) => {
-          if (rabbit.gender && rabbit.gender === 'female') {
-            this.mothers.push(rabbit);
+          if (rabbit.gender && rabbit.gender === parentGender) {
+            parents.push(rabbit);
           }
         });
+
+        // TODO change this shit
+        parentEntity === 'mother' ? this.mothers = parents : this.fathers = parents;
+
         console.log('mothers', this.mothers);
       })
       .catch((error) => {
@@ -65,9 +79,5 @@ export class RabbitsComponent {
       });
   }
 
-  // add relation to parent
-  addRelationToParent (parent, destination, child) {
-    this.rabbitService.addRelation(parent, destination, child);
-  }
 
 }
