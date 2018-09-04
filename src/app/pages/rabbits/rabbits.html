@@ -27,11 +27,13 @@
       <div class="col-sm-3">
         <div class="form-group">
           <label for="fatherName">Отец</label>
-          <input type="text"
+          <select type="text"
                  [(ngModel)]="rabbit.father"
                  name="fatherName"
                  #fatherName="ngModel"
                  class="form-control" id="fatherName" placeholder="Отец">
+            <option *ngFor="let father of fathers" [ngValue]="father">{{ father.name }}</option>
+          </select>
         </div>
       </div>
       <div class="col-sm-3">

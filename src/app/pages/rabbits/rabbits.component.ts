@@ -60,7 +60,6 @@ export class RabbitsComponent {
   getParents(parentEntity, parentGender) {
     this.rabbitService.getData()
       .then((data) => {
-        console.log('getParentsNames', data);
         const parents: Array<any> = [];
 
         data.forEach((rabbit) => {
@@ -71,8 +70,6 @@ export class RabbitsComponent {
 
         // TODO change this shit
         parentEntity === 'mother' ? this.mothers = parents : this.fathers = parents;
-
-        console.log('mothers', this.mothers);
       })
       .catch((error) => {
         console.log(error);
