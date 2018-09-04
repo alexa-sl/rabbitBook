@@ -80,7 +80,7 @@ export class RabbitService {
   addRelation(parent, destination, child): Promise<any> {
     return new Promise((resolve, reject) => {
 
-      rabbitsBase.addRelation(parent, 'children', [child.objectId])
+      rabbitsBase.addRelation(parent, destination, [child.objectId])
         .then((response) => {
           console.log('response service', response);
           resolve(response);
