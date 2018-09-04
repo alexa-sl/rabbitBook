@@ -68,9 +68,9 @@ export class DbTable {
     });
   }
 
-  // get rabbits(): Rabbit[] {
-  //   return this.rabbitsService.rabbits;
-  // }
+  get rabbits(): Rabbit[] {
+    return this.rabbitsService.rabbits;
+  }
 
   data: LocalDataSource = new LocalDataSource();
 

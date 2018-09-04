@@ -16,11 +16,11 @@
         <div class="form-group">
           <label for="motherName">Мать</label>
           <select
-            [(ngModel)]="rabbit.motherName"
+            [(ngModel)]="rabbit.mother"
             name="motherName"
             #fatherName="ngModel"
             class="form-control" id="motherName" placeholder="Мать">
-            <option *ngFor="let mother of mothers">{{ mother.name }}</option>
+            <option *ngFor="let mother of mothers" [ngValue]="mother">{{ mother.name }}</option>
           </select>
         </div>
       </div>
@@ -28,7 +28,7 @@
         <div class="form-group">
           <label for="fatherName">Отец</label>
           <input type="text"
-                 [(ngModel)]="rabbit.fatherName"
+                 [(ngModel)]="rabbit.father"
                  name="fatherName"
                  #fatherName="ngModel"
                  class="form-control" id="fatherName" placeholder="Отец">

@@ -11,6 +11,8 @@ export class Rabbit {
   gender: string;
   motherName: string;
   fatherName: string;
+  mother: Object;
+  father: Object;
   vaccinations: Array<string>;
   pregnancies: Array<string>;
 }
@@ -58,7 +60,8 @@ export class RabbitService {
       let newElement: Object;
 
       if (element) {
-        newElement = element.newData;
+        // newElement = element.newData;
+        newElement = element;
       }
 
       rabbitsBase.save(newElement)
@@ -68,6 +71,22 @@ export class RabbitService {
         })
         .catch(function (error) {
           console.log('one element add rejected', error);
+          reject(error);
+        });
+    });
+  }
+
+  // add relation
+  addRelation(child, destination, parent): Promise<any> {
+    return new Promise((resolve, reject) => {
+
+      rabbitsBase.addRelation(parent, 'children', [child.objectId])
+        .then((response) => {
+          console.log('response service', response);
+          resolve(response);
+        })
+        .catch((error) => {
+          console.log(error);
           reject(error);
         });
     });

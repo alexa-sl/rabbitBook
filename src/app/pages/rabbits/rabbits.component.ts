@@ -15,6 +15,7 @@ import {forEach} from "@angular/router/src/utils/collection";
 export class RabbitsComponent {
   isChecked: boolean = false;
   mothers: Array<any> = [];
+  foundRabbit: Object = {};
 
   constructor (
     private personsService: PersonsService,
@@ -36,7 +37,13 @@ export class RabbitsComponent {
   }
 
   onSubmitAddRabbitsForm() {
-    this.rabbitService.addOneElement(this.rabbit);
+    this.rabbitService.addOneElement(this.rabbit)
+      .then((response) => {
+        if (this.rabbit.mother) {
+          this.addRelationToParent(response, 'mother', this.rabbit.mother);
+        }
+      });
+
     console.log('on submit add rabbits form', this.rabbit);
   }
 
@@ -46,7 +53,7 @@ export class RabbitsComponent {
       .then((data) => {
         console.log('getMotherNames', data);
         data.forEach((rabbit) => {
-          if (rabbit.motherName) {
+          if (rabbit.gender && rabbit.gender === 'female') {
             this.mothers.push(rabbit);
           }
         });
@@ -55,6 +62,11 @@ export class RabbitsComponent {
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  // add relation to parent
+  addRelationToParent (child, destination, parent) {
+    this.rabbitService.addRelation(child, destination, parent);
   }
 
 }
