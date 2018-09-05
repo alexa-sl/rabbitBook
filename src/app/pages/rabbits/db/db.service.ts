@@ -92,6 +92,20 @@ export class RabbitService {
     });
   }
 
+  // find one element
+  getOneElement(element) {
+    return new Promise((resolve, reject) => {
+      Backendless.Data.of('Rabbit').find(element.objectId)
+        .then((response) => {
+          resolve(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+          reject(error);
+        });
+    });
+  }
+
   // TODO
   basicPaging(): void {
     const query = Backendless.DataQueryBuilder.create();

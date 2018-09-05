@@ -8,6 +8,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgaModule } from '../../theme/nga.module';
 import { FormsModule } from '@angular/forms';
 import { CoupleComponent } from './couple.component';
+import { TreeModule } from 'ng2-tree';
+import { RabbitService } from '../rabbits/db/db.service';
 
 
 @NgModule({
@@ -16,12 +18,14 @@ import { CoupleComponent } from './couple.component';
     Ng2SmartTableModule,
     NgaModule,
     routing,
-    FormsModule
+    FormsModule,
+    TreeModule
   ],
   declarations: [
     CoupleComponent
   ],
   providers: [
+    RabbitService
   ]
 })
 export class CoupleModule {}
