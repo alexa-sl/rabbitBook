@@ -39,6 +39,18 @@ export const PAGES_MENU = [
         }
       },
       {
+        path: 'couple',
+        data: {
+          menu: {
+            title: 'Подбор пары',
+            icon: 'ion-heart',
+            selected: false,
+            expanded: false,
+            order: 60
+          }
+        }
+      },
+      {
         path: 'editors',
         data: {
           menu: {
