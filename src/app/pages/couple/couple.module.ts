@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { CoupleComponent } from './couple.component';
 import { TreeModule } from 'ng2-tree';
 import { RabbitService } from '../rabbits/db/db.service';
+import { ChildObj } from './couple.service';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RabbitService } from '../rabbits/db/db.service';
     CoupleComponent
   ],
   providers: [
-    RabbitService
+    RabbitService,
+    ChildObj
   ]
 })
 export class CoupleModule {}

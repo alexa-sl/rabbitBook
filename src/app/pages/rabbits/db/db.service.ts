@@ -105,6 +105,25 @@ export class RabbitService {
         });
     });
   }
+  // find one element
+  getOneElementWithRelations(element, relationA, relationB) {
+    if (!element || !element.objectId) {
+      return;
+    }
+    return new Promise((resolve, reject) => {
+      Backendless.Data.of('Rabbit').findById(
+        { objectId: element.objectId || undefined,
+          loadRelations: relationA
+        })
+        .then((response) => {
+          resolve(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+          reject(error);
+        });
+    });
+  }
 
   // TODO
   basicPaging(): void {

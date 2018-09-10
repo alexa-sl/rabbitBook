@@ -21,7 +21,7 @@ import { environment } from '../environments/environment';
 
 // for notifications
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from '../../node_modules/ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 
 // Application wide providers
