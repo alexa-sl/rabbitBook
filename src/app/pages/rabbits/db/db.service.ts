@@ -106,7 +106,7 @@ export class RabbitService {
     });
   }
   // find one element
-  getOneElementWithRelations(element, relationA, relationB) {
+  getOneElementWithRelations(element, relationA) {
     if (!element || !element.objectId) {
       return;
     }

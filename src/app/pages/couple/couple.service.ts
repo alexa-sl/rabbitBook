@@ -15,3 +15,9 @@ export class ChildObj {
   id: any;
   children: Array<any>;
 }
+
+export class Tree {
+  value: any;
+  id: any;
+  children: Array<any>;
+}

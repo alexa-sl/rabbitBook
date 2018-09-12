@@ -4,7 +4,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TreeModel } from 'ng2-tree';
 import { Rabbit, RabbitService } from '../rabbits/db/db.service';
-import { ChildObj } from './couple.service';
+import { ChildObj, Tree } from './couple.service';
 import * as _ from 'lodash';
 
 @Component({
@@ -20,13 +20,19 @@ export class CoupleComponent {
 
   constructor (
     private rabbitService: RabbitService,
-    private childObj: ChildObj
+    private childObj: ChildObj,
+    private myTree: Tree
   ) {}
 
   ngOnInit() {
     // this.getAllRabbits();
     this.generateTree(this.myElement);
   }
+  parentTree: TreeModel = {
+    value: '',
+    id: '',
+    children: []
+  };
 
   tree: TreeModel = {
     value: 'Programming languages by programming paradigm',
@@ -64,45 +70,64 @@ export class CoupleComponent {
 
   generateTree(element) {
     // return new Promise(function(resolve, reject) {
-    return this.rabbitService.getOneElementWithRelations(element, 'mother', 'father')
+    return this.rabbitService.getOneElementWithRelations(element, 'mother')
       .then((response: any) => {
-        // this.motherTree[counter]
-        // this.generateTree(response);
-        // this.putAsAChild(parent, response, motherTree);
-        // this.generateTree(response.mother[0], response, motherTree);
-
-
-        ////////////////////////////////
-        console.log('response', response);
-        const myCounter = this.counter;
-        let myTree = this.motherTree0;
-        const myCurrentChild = this.generateChild(response);
-        console.log('child', myCurrentChild);
-
-        if (_.isEmpty(myTree)) {
-          console.log('inside', myCurrentChild);
-          // this.motherTree0 = myCurrentChild;
-          myTree = myCurrentChild;
-        } else {
-          // motherTree = _.set(motherTree, myCounter, myCurrentChild);
-        }
-
-
-        this.motherTree0 = myTree;
-        console.log('tree', myTree);
-
+       // const myCounter = this.counter;
+// //         let myTree = this.motherTree0;
+//         const that = this;
+//         const myCurrentChild = that.generateChild(response);
+//
+//         // if (_.isEmpty(myTree)) {
+//         //   console.log('inside', myCurrentChild);
+//         //   myTree = myCurrentChild;
+//         // } else {
+//         //   // motherTree = _.set(motherTree, myCounter, myCurrentChild);
+//         // }
+//
+//
+//         that.myTree = that.fillTree(myCurrentChild, that.myTree);
+//         console.log('tree', that.myTree);
+//
+//         if (response.mother.length) {
+//           // if (!this.counter) {
+//           //   this.counter += 'children[0]';
+//           // } else {
+//           //   this.counter += '.children[0]';
+//           // }
+//           return that.generateTree(response.mother[0]);
+//         } else {
+//           return;
+//         }
+        this.fillTree(response, this.parentTree);
+        // if (a < 1) {
+        //   a++;
+        //
+        // }
         if (response.mother.length) {
           if (!this.counter) {
             this.counter += 'children[0]';
           } else {
             this.counter += '.children[0]';
           }
+          console.log('before return', this.parentTree);
           return this.generateTree(response.mother[0]);
-        } else {
-          return;
         }
+        console.log('after', this.parentTree);
+        return this.motherTree0 = this.parentTree;
       });
-    // });
+  }
+
+  fillTree (child, tree) {
+    if (_.isEmpty(this.parentTree.value)) {
+      console.log('inside', tree);
+      this.parentTree = this.generateChild(child);
+    } else {
+      console.log('unchanged', tree);
+      // const genChild = this.generateChild(child);
+
+      _.set(this.parentTree, this.counter, {value: child.name, id: child.objectId, children: ['', '']});
+    }
+    return this.parentTree;
   }
 
   putAsAChild(parent, child, tree) {
@@ -170,5 +195,3 @@ export class CoupleComponent {
   }
 
 }
-
-
