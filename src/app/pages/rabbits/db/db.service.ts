@@ -106,14 +106,14 @@ export class RabbitService {
     });
   }
   // find one element
-  getOneElementWithRelations(element, relationA) {
+  getOneElementWithRelations(element, relationA, relationB) {
     if (!element || !element.objectId) {
       return;
     }
     return new Promise((resolve, reject) => {
       Backendless.Data.of('Rabbit').findById(
         { objectId: element.objectId || undefined,
-          loadRelations: relationA
+          loadRelations: relationA.concat(',', relationB)
         })
         .then((response) => {
           resolve(response);

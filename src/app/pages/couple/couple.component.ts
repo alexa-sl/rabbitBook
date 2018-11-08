@@ -6,6 +6,7 @@ import { TreeModel } from 'ng2-tree';
 import { Rabbit, RabbitService } from '../rabbits/db/db.service';
 import { ChildObj, Tree } from './couple.service';
 import * as _ from 'lodash';
+import {reject} from "q";
 
 @Component({
   selector: 'couple',
@@ -14,8 +15,9 @@ import * as _ from 'lodash';
 
 export class CoupleComponent {
   motherTree0: Object = {};
-  myElement: Object = { objectId: 'C3405D4C-7F54-6B71-FF39-10C627721C00' };
-  counter: any = '';
+  myElement: Object = { objectId: 'BF1DB0AC-6C69-14D2-FF12-726ECC820000' };
+  counterMother: any = '';
+  counterFather: any = '';
   currentChild: any = '';
 
   constructor (
@@ -26,7 +28,7 @@ export class CoupleComponent {
 
   ngOnInit() {
     // this.getAllRabbits();
-    this.generateTree(this.myElement);
+    this.generateTree(this.myElement, undefined);
   }
   parentTree: TreeModel = {
     value: '',
@@ -68,56 +70,45 @@ export class CoupleComponent {
       });
   }
 
-  generateTree(element) {
-    // return new Promise(function(resolve, reject) {
-    return this.rabbitService.getOneElementWithRelations(element, 'mother')
+  generateTree(element, counter) {
+    return this.rabbitService.getOneElementWithRelations(element, 'mother', 'father')
       .then((response: any) => {
-       // const myCounter = this.counter;
-// //         let myTree = this.motherTree0;
-//         const that = this;
-//         const myCurrentChild = that.generateChild(response);
-//
-//         // if (_.isEmpty(myTree)) {
-//         //   console.log('inside', myCurrentChild);
-//         //   myTree = myCurrentChild;
-//         // } else {
-//         //   // motherTree = _.set(motherTree, myCounter, myCurrentChild);
-//         // }
-//
-//
-//         that.myTree = that.fillTree(myCurrentChild, that.myTree);
-//         console.log('tree', that.myTree);
-//
-//         if (response.mother.length) {
-//           // if (!this.counter) {
-//           //   this.counter += 'children[0]';
-//           // } else {
-//           //   this.counter += '.children[0]';
-//           // }
-//           return that.generateTree(response.mother[0]);
-//         } else {
-//           return;
-//         }
-        this.fillTree(response, this.parentTree);
-        // if (a < 1) {
-        //   a++;
-        //
+
+        this.fillTree(response, this.parentTree, counter);
+
+        const motherPromise = this.promiseMother(response);
+        const fatherPromise = this.promiseFather(response);
+        // const fatherPromise = new Promise((resolve) => {
+        //   resolve();
+        // });
+
+        // if (response.father && response.father.length) {
+        //   if (!this.counter) {
+        //     this.counter += 'children[1]';
+        //   } else {
+        //     this.counter += '.children[1]';
+        //   }
+        //   console.log('before return', this.parentTree);
+        //   return this.generateTree(response.father[0]);
         // }
-        if (response.mother.length) {
-          if (!this.counter) {
-            this.counter += 'children[0]';
-          } else {
-            this.counter += '.children[0]';
-          }
-          console.log('before return', this.parentTree);
-          return this.generateTree(response.mother[0]);
-        }
-        console.log('after', this.parentTree);
-        return this.motherTree0 = this.parentTree;
+
+        Promise.all([motherPromise, fatherPromise]).then(data1 => {
+          console.log('after', this.parentTree);
+          console.log('data', data1);
+          const that: any = this;
+          setTimeout(function () {
+            return that.motherTree0 = that.parentTree;
+          }, 2000);
+
+        }).catch(error => {
+          console.log(error);
+        });
+
+        console.log('done?');
       });
   }
 
-  fillTree (child, tree) {
+  fillTree (child, tree, counter) {
     if (_.isEmpty(this.parentTree.value)) {
       console.log('inside', tree);
       this.parentTree = this.generateChild(child);
@@ -125,10 +116,46 @@ export class CoupleComponent {
       console.log('unchanged', tree);
       // const genChild = this.generateChild(child);
 
-      _.set(this.parentTree, this.counter, {value: child.name, id: child.objectId, children: ['', '']});
+      _.set(this.parentTree, counter, { value: child.name, id: child.objectId, children: ['', ''] });
     }
     return this.parentTree;
   }
+
+  promiseMother(myResponse) {
+   return new Promise((resolve, reject) => {
+     if (myResponse.mother.length) {
+       if (!this.counterMother) {
+         this.counterMother += 'children[0]';
+       } else {
+         this.counterMother += '.children[0]';
+       }
+       console.log('before return', this.parentTree);
+       return this.generateTree(myResponse.mother[0], this.counterMother)
+         .then(() => {
+          resolve(this.parentTree);
+         })
+         .catch(reject);
+     }
+   });
+  }
+  promiseFather(myResponse) {
+   return new Promise((resolve, reject) => {
+     if (myResponse.father.length) {
+       if (!this.counterFather) {
+         this.counterFather += 'children[1]';
+       } else {
+         this.counterFather += '.children[1]';
+       }
+       console.log('before return', this.parentTree);
+       return this.generateTree(myResponse.father[0], this.counterFather)
+         .then(() => {
+          resolve(this.parentTree);
+         })
+         .catch(reject);
+     }
+   });
+  }
+
 
   putAsAChild(parent, child, tree) {
     if (!tree.length && !parent) {
