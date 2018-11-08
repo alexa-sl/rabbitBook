@@ -1,20 +1,23 @@
 /**
  * Created by alexa on 05.09.2018.
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { TreeModel } from 'ng2-tree';
 import { Rabbit, RabbitService } from '../rabbits/db/db.service';
 import { ChildObj, Tree } from './couple.service';
 import * as _ from 'lodash';
-import {reject} from "q";
 
 @Component({
   selector: 'couple',
   templateUrl: './couple.html',
 })
 
-export class CoupleComponent {
-  motherTree0: Object = {};
+export class CoupleComponent implements AfterViewInit {
+  motherTree0: Object = {
+    value: 'test',
+    id: 1,
+    children: []
+  };
   myElement: Object = { objectId: 'BF1DB0AC-6C69-14D2-FF12-726ECC820000' };
   counterMother: any = '';
   counterFather: any = '';
@@ -60,6 +63,8 @@ export class CoupleComponent {
     ]
   };
 
+  @ViewChild('treeComponent') treeComponent;
+
   getAllRabbits() {
     this.rabbitService.getData()
       .then((data) => {
@@ -97,8 +102,11 @@ export class CoupleComponent {
           console.log('data', data1);
           const that: any = this;
           setTimeout(function () {
-            return that.motherTree0 = that.parentTree;
-          }, 2000);
+            that.motherTree0 = that.parentTree;
+          that.treeComponent.getControllerByNodeId(1).reloadChildren();
+
+          that.testFunction(data1);
+          });
 
         }).catch(error => {
           console.log(error);
@@ -106,6 +114,16 @@ export class CoupleComponent {
 
         console.log('done?');
       });
+  }
+
+  testFunction(tree) {
+    this.motherTree0 = tree;
+    this.treeComponent.getControllerByNodeId(1).reloadChildren();
+  }
+
+  ngAfterViewInit(): void {
+    // ... make use of this.treeComponent ...
+    debugger;
   }
 
   fillTree (child, tree, counter) {
@@ -118,6 +136,9 @@ export class CoupleComponent {
 
       _.set(this.parentTree, counter, { value: child.name, id: child.objectId, children: ['', ''] });
     }
+
+    this.testFunction(this.parentTree);
+
     return this.parentTree;
   }
 
