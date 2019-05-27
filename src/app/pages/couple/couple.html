@@ -2,13 +2,37 @@
 <div class="row">
 
   <div class="col-md-6">
+    <div class="form-group">
+      <label for="motherName">Мать</label>
+      <select
+        [(ngModel)]="mother"
+        name="motherName"
+        #fatherName="ngModel"
+        class="form-control" id="motherName" placeholder="Мать"
+        (change)="startTreeGeneration(mother, 'motherTree')">
+        <option *ngFor="let mother of mothers" [ngValue]="mother">{{ mother.name }}</option>
+      </select>
+    </div>
+
     <ba-card cardTitle="Мать">
-      <tree [tree]="motherTree0" #treeComponent></tree>
+      <tree [tree]="motherTree" #motherTreeComponent></tree>
     </ba-card>
   </div>
   <div class="col-md-6">
+    <div class="form-group">
+      <label for="fatherName">Отец</label>
+      <select type="text"
+              [(ngModel)]="father"
+              name="fatherName"
+              #fatherName="ngModel"
+              class="form-control" id="fatherName" placeholder="Отец"
+              (change)="startTreeGeneration(father, 'fatherTree')">
+        <option *ngFor="let father of fathers" [ngValue]="father">{{ father.name }}</option>
+      </select>
+    </div>
+
     <ba-card cardTitle="Отец">
-      <tree [tree]="tree"></tree>
+      <tree [tree]="fatherTree" #fatherTreeComponent></tree>
     </ba-card>
   </div>
 </div>
