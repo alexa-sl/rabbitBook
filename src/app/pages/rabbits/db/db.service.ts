@@ -16,6 +16,11 @@ export class Rabbit {
   vaccinations: Array<string>;
   pregnancies: Array<string>;
   isAlive: boolean;
+  breeding: boolean;
+  amountOfChildren: number;
+  male: string;
+  dateOfSex: string;
+  dateOfChildbirth: string;
 }
 
 const rabbitsBase = Backendless.Data.of('Rabbit');
@@ -58,6 +63,7 @@ export class RabbitService {
   addOneElement(element): Promise<any> {
     return new Promise((resolve, reject) => {
       console.log('add one element');
+      debugger;
       let newElement: Object;
 
       if (element) {

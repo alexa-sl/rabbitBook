@@ -24,6 +24,7 @@ import { TrafficChartService } from './trafficChart/trafficChart.service';
 import { UsersMapService } from './usersMap/usersMap.service';
 
 import { RabbitService } from '../rabbits/db/db.service';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { RabbitService } from '../rabbits/db/db.service';
     FormsModule,
     AppTranslationModule,
     NgaModule,
+    Ng2SmartTableModule,
     routing
   ],
   declarations: [

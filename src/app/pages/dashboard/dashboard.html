@@ -20,6 +20,27 @@
     </ba-card>
   </div>
 </div>
+
+<ba-card baCardClass="with-scroll" class="smart-table-container">
+  <div class="row">
+    <div class="smart-table-container">
+      <ng2-smart-table
+        [settings]="settings"
+        [source]="femalesData"
+        (editConfirm)="onSaveConfirm($event)"
+      ></ng2-smart-table>
+    </div>
+  </div>
+</ba-card>
+
+
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+  </div>
+</div>
+
+
 <div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <pie-chart></pie-chart>

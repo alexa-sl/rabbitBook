@@ -55,12 +55,24 @@ export class DbTable {
         title: 'Пол',
         type: 'string'
       },
-      children: {
-        title: 'Потомки',
-        type: 'Array'
+      // children: {
+      //   title: 'Потомки',
+      //   type: 'Array'
+      // },
+      amountOfChildren: {
+        title: 'Количество детей',
+        type: 'number'
+      },
+      dateOfSex: {
+        title: 'Дата случки',
+        type: 'string'
+      },
+      dateOfChildbirth: {
+        title: 'Дата окрола',
+        type: 'string'
       },
       isAlive: {
-        title: 'Живой',
+        title: 'Активен',
         type: 'Boolean'
       }
     }
@@ -109,7 +121,7 @@ export class DbTable {
     if (window.confirm('Are you sure you want to save?')) {
       const that: any = this;
 
-      this.rabbitsService.addOneElement(event)
+      this.rabbitsService.addOneElement(event.newData)
         .then(function (response) {
           that.toastr.success('успешно обновлен', response.name);
           event.confirm.resolve(event.newData);
