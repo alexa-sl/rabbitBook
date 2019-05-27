@@ -58,6 +58,10 @@ export class DbTable {
       children: {
         title: 'Потомки',
         type: 'Array'
+      },
+      isAlive: {
+        title: 'Живой',
+        type: 'Boolean'
       }
     }
   };

@@ -69,6 +69,10 @@
     "spending":  "Расходы",
     "young": "Молодняк",
     "old": "Взрослые",
+    "total": "Всего",
+    "up72": "Младше 72 дней",
+    "up100": "От 72 до 100 дней",
+    "archive": "Архив",
     "popular_app": {
       "super_app": "Super App",
       "most_popular_app": "Most Popular App",

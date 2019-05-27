@@ -15,6 +15,7 @@ export class Rabbit {
   father: Object;
   vaccinations: Array<string>;
   pregnancies: Array<string>;
+  isAlive: boolean;
 }
 
 const rabbitsBase = Backendless.Data.of('Rabbit');
