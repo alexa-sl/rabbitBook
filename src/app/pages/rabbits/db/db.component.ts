@@ -41,7 +41,8 @@ export class DbTable {
       },
       motherName: {
         title: 'Мать',
-        type: 'string'
+        type: 'string',
+        valuePrepareFunction: (value) => value ? value.name : ''
       },
       fatherName: {
         title: 'Отец',

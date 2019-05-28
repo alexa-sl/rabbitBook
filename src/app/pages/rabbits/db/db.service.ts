@@ -63,7 +63,6 @@ export class RabbitService {
   addOneElement(element): Promise<any> {
     return new Promise((resolve, reject) => {
       console.log('add one element');
-      debugger;
       let newElement: Object;
 
       if (element) {
