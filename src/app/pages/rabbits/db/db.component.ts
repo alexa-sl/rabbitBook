@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Rabbit, RabbitService } from './db.service';
 import { ToastrService } from 'ngx-toastr';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'db-table',
@@ -15,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 export class DbTable {
 
   query: string = '';
+  rabbitsList: Rabbit[];
 
 
   settings = {
@@ -81,7 +83,9 @@ export class DbTable {
 
   ngOnInit() {
     this.rabbitsService.getData().then((data) => {
-      this.data.load(data);
+      this.rabbitsList = data;
+      this.sortList();
+      this.data.load(this.rabbitsList);
     });
   }
 
@@ -151,6 +155,12 @@ export class DbTable {
     } else {
       event.confirm.reject();
     }
+  }
+
+  sortList() {
+    this.rabbitsList = _.sortBy(this.rabbitsList, function (rabbit) {
+      return rabbit.name.toLowerCase();
+    });
   }
 
 }

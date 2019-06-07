@@ -17,33 +17,55 @@ export class Dashboard {
   archived: any;
   under72: any;
   under100: any;
+  up100: any;
 
   settings = {
     actions: {
-      delete: false,
-      add: false
-    },
-    edit: {
+      delete: false, add: false
+    }, edit: {
       editButtonContent: '<i class="ion-edit"></i>',
       saveButtonContent: '<i class="ion-checkmark"></i>',
       cancelButtonContent: '<i class="ion-close"></i>',
       confirmSave: true
-    },
-    columns: {
+    }, columns: {
       name: {
-        title: 'Самка', type: 'string'
-      },
-      dateOfSex: {
-        title: 'Дата случки', type: 'string'
-      },
-      dateOfChildbirth: {
-        title: 'Дата окрола', type: 'string'
-      },
-      male: {
-        title: 'Самец', type: 'string'
-      },
-      amountOfChildren: {
-        title: 'Количество', type: 'string'
+        title: 'Самка', type: 'html'
+        // compareFunction (direction: any, a: any, b: any) {
+        //   debugger;
+        //
+        //   const first = isNaN(Number(a)) ? a.toLowerCase() : Number(a);
+        //   const second = isNaN(Number(b)) ? b.toLowerCase() : Number(b);
+        //
+        //   if (first < second || (!isNaN(Number(a)) && isNaN(Number(b)))) {
+        //     return -1 * direction;
+        //   }
+        //   if (first > second || (isNaN(Number(a)) && !isNaN(Number(b)))) {
+        //     return direction;
+        //   }
+        //
+        //
+        //   return 0;
+        // }
+      }, dateOfSex: {
+        title: 'Дата случки',
+        type: 'html',
+        filter: false,
+        valuePrepareFunction: (data) => '<span class="pink">' + (data ? data : '') + '</span>'
+      }, dateOfChildbirth: {
+        title: 'Дата окрола',
+        type: 'html',
+        filter: false,
+        valuePrepareFunction: (data) => '<span class="red">' + (data ? data : '') + '</span>'
+      }, male: {
+        title: 'Самец',
+        type: 'html',
+        filter: false,
+        valuePrepareFunction: (data) => '<span class="blue">' + (data ? data : '') + '</span>'
+      }, amountOfChildren: {
+        title: 'Количество',
+        type: 'html',
+        filter: false,
+        valuePrepareFunction: (data) => '<span class="green">' + (data ? data : '') + '</span>'
       }
     }
   };
@@ -51,10 +73,8 @@ export class Dashboard {
   femalesData: LocalDataSource = new LocalDataSource();
 
 
-  constructor(
-    private rabbitService: RabbitService,
-    private toastr: ToastrService
-  ) {}
+  constructor(private rabbitService: RabbitService, private toastr: ToastrService) {
+  }
 
 
   ngOnInit() {
@@ -65,10 +85,12 @@ export class Dashboard {
     this.rabbitService.getData()
       .then((data) => {
         this.rabbits = data;
+        this.sortList();
         this.total = this.getAllAlive();
         this.archived = this.getAllArchived();
         this.under72 = this.getUnder72();
         this.under100 = this.getUnder100();
+        this.up100 = this.getUp100();
         this.femalesData.load(this.getFemales());
       })
       .catch((error) => {
@@ -77,7 +99,7 @@ export class Dashboard {
   }
 
   getAllAlive() {
-    const aliveRabbits = _.filter(this.rabbits, function(rabbit) {
+    const aliveRabbits = _.filter(this.rabbits, function (rabbit) {
       return rabbit.isAlive;
     });
 
@@ -85,7 +107,7 @@ export class Dashboard {
   }
 
   getAllArchived() {
-    const archivedRabbits = _.filter(this.rabbits, function(rabbit) {
+    const archivedRabbits = _.filter(this.rabbits, function (rabbit) {
       return !rabbit.isAlive;
     });
 
@@ -94,7 +116,7 @@ export class Dashboard {
 
   getUnder72() {
     const that = this;
-    const under72 = _.filter(this.rabbits, function(rabbit) {
+    const under72 = _.filter(this.rabbits, function (rabbit) {
 
       if (rabbit.dob && that.getDaysBetweenDates(new Date(rabbit.dob), new Date()) < 72) {
         return rabbit;
@@ -107,17 +129,29 @@ export class Dashboard {
 
   getUnder100() {
     const that = this;
-    const under100 = _.filter(this.rabbits, function(rabbit) {
+    const under100 = _.filter(this.rabbits, function (rabbit) {
 
-      if (rabbit.dob &&
-        that.getDaysBetweenDates(new Date(rabbit.dob), new Date()) >= 72 &&
-        that.getDaysBetweenDates(new Date(rabbit.dob), new Date()) <= 100) {
-          return rabbit;
+      if (rabbit.dob && that.getDaysBetweenDates(new Date(rabbit.dob), new Date()) >= 72
+        && that.getDaysBetweenDates(new Date(rabbit.dob), new Date()) <= 100) {
+        return rabbit;
       }
 
     });
 
     return under100.length;
+  }
+
+  getUp100() {
+    const that = this;
+    const up100 = _.filter(this.rabbits, function (rabbit) {
+
+      if (rabbit.dob && that.getDaysBetweenDates(new Date(rabbit.dob), new Date()) > 100) {
+        return rabbit;
+      }
+
+    });
+
+    return up100.length;
   }
 
   getDaysBetweenDates(dateA, dateB) {
@@ -129,7 +163,7 @@ export class Dashboard {
   }
 
   getFemales() {
-    const females = _.filter(this.rabbits, function(rabbit) {
+    const females = _.filter(this.rabbits, function (rabbit) {
       if (rabbit.isAlive && rabbit.gender === 'female' && rabbit.breeding) {
         return rabbit;
       }
@@ -156,5 +190,11 @@ export class Dashboard {
     } else {
       event.confirm.reject();
     }
+  }
+
+  sortList() {
+    this.rabbits = _.sortBy(this.rabbits, function (rabbit) {
+      return rabbit.name.toLowerCase();
+    });
   }
 }
