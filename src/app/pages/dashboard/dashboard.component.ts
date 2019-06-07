@@ -192,6 +192,7 @@ export class Dashboard {
     }
   }
 
+  // sort rabbits list by name
   sortList() {
     this.rabbits = _.sortBy(this.rabbits, function (rabbit) {
       return rabbit.name.toLowerCase();
